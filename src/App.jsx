@@ -1,10 +1,11 @@
 import "./style.scss";
-import Header from "./Components/header";
+import Header from "./Components/Header";
 import LeftBar from "./Components/LeftBar";
 import MainPage from "./Components/MainPage";
 import { useState } from "react";
 import { Routes, Route } from "react-router";
 import VideoPage from "./Components/VideoPage";
+import History from "./Components/History";
 
 function App() {
   const [channel, setChannel] = useState(null);
@@ -35,6 +36,7 @@ function App() {
             element={<MainPage channel={channel} searcher={searcher} />}
           />
           <Route path="/video/:id" element={<VideoPage />} />
+          <Route path="/history" element={<History />} />
           <Route path="/test" element={"test"} />
         </Routes>
       </div>

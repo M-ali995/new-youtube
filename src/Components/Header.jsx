@@ -21,7 +21,8 @@ export default function Header({ searchingVideo, resetSearchFilter }) {
   }, []);
 
   const handleLogout = ()  => {
-    console.log("exit")
+    localStorage.removeItem("user");
+    window.location.reload();
   }
 
   return (
@@ -45,7 +46,7 @@ export default function Header({ searchingVideo, resetSearchFilter }) {
         <i className="material-symbols-outlined">mic</i>
         <button>+Создать</button>
         <i className="material-symbols-outlined">notifications</i>
-        <div>{user ? <DropdownButton onLogout={handleLogout} /> : <Auth />}</div>
+        <div>{user ? <DropdownButton onLogout={handleLogout} /> : <Auth onLogin={(user) => setUser(user)} />}</div>
       </div>
     </header>
   );

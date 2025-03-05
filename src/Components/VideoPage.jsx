@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { yotubeBox } from "../yotubeReducer";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 
 export default function VideoPage() {
   const { id } = useParams();
@@ -8,6 +8,19 @@ export default function VideoPage() {
   const [likes, setLikes] = useState(0);
   const [comments, setComments] = useState([]);
   const textAreaRef = useRef(null);
+
+  const [history, setHistory] = useState(() => {
+    return JSON.parse(localStorage.getItem("history")) || [];
+  });
+
+  useEffect(() => {
+    if (id && !history.includes(id)) {
+      const updatedHistory = [...history, id];
+      setHistory(updatedHistory);
+      localStorage.setItem("history", JSON.stringify(updatedHistory));
+    }
+  }, [id]);
+  
 
   function saveComment() {
     const element = textAreaRef.current.value;

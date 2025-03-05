@@ -13,7 +13,7 @@ export default function LeftBarMenu({ resetSearchFilter }) {
     { path: "/", label: "Главная", icon: "home" },
     { path: "/shorts", label: "Shorts", icon: "playing_cards" },
     { path: "/subscr", label: "Подписки", icon: "subscriptions" },
-    { path: "/story", label: "История", icon: "history" },
+    { path: "/history", label: "История", icon: "history" },
     { path: "/playlists", label: "Плейлисты", icon: "playlist_play" },
     { path: "/videos", label: "Ваши Видео", icon: "smart_display" },
     { path: "/later", label: "Смотреть позже", icon: "schedule" },

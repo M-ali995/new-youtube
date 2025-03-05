@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Routes, Route } from "react-router";
 import VideoPage from "./Components/VideoPage";
 import History from "./Components/History";
+import Later from "./Components/Later";
 
 function App() {
   const [channel, setChannel] = useState(null);
@@ -37,6 +38,7 @@ function App() {
           />
           <Route path="/video/:id" element={<VideoPage />} />
           <Route path="/history" element={<History />} />
+          <Route path="/later" element={<Later />} />
           <Route path="/test" element={"test"} />
         </Routes>
       </div>

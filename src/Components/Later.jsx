@@ -2,16 +2,18 @@ import React, { useState, useEffect } from "react";
 import ContainerItem from "./ContainerItem";
 import { yotubeBox } from "../yotubeReducer";
 
-const History = () => {
+
+const Later = () => {
+
   const [filteredItems, setFilteredItems] = useState([]);
 
   useEffect(() => {
-    const storedIds = JSON.parse(localStorage.getItem("history")) || [];
-
+    const storedIds = JSON.parse(localStorage.getItem("watchLater")) || [];
     const storedIdsAsNumbers = storedIds.map(Number);
-  
-    const filteredData = yotubeBox.filter((item) => storedIdsAsNumbers.includes(item.id));
-  
+    const filteredData = yotubeBox.filter((item) =>
+      storedIdsAsNumbers.includes(item.id)
+    );
+
     console.log(filteredData);
     setFilteredItems(filteredData);
   }, []);
@@ -27,4 +29,4 @@ const History = () => {
   );
 };
 
-export default History;
+export default Later;

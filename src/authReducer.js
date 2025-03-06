@@ -1,9 +1,5 @@
-export const users = [
-    {
-        login: "Ali",
-        password: "12345"
-    }
-]
+
+export const users = JSON.parse(localStorage.getItem("userList")) || [];
 
 
 export const authentication = (authData) => {
@@ -11,3 +7,6 @@ export const authentication = (authData) => {
         return user.login === authData.login && user.password === authData.password
     })
 };
+
+
+

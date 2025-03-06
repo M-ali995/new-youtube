@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import DropdownButton from "./DropdownButton";
 import { NavLink } from "react-router-dom";
 import Auth from "./Auth";
+import VoiceTyping from "./VoiceTyping";
 
 export default function Header({ searchingVideo, resetSearchFilter }) {
   const [inputValue, setInputValue] = useState("");
@@ -10,8 +11,11 @@ export default function Header({ searchingVideo, resetSearchFilter }) {
     setInputValue(ev.target.value);
   }
 
+  function voiceTypingHandler(ev) {
+    console.log(ev)
+    setInputValue(ev);
+  }
   const [user, setUser] = useState(null);
-  
 
   useEffect(() => {
     const savedUser = localStorage.getItem("user");
@@ -20,10 +24,10 @@ export default function Header({ searchingVideo, resetSearchFilter }) {
     }
   }, []);
 
-  const handleLogout = ()  => {
+  const handleLogout = () => {
     localStorage.removeItem("user");
     window.location.reload();
-  }
+  };
 
   return (
     <header className="header">
@@ -36,17 +40,31 @@ export default function Header({ searchingVideo, resetSearchFilter }) {
           type="text"
           placeholder="Введите запрос"
           onInput={inputHandler}
+          value={inputValue}
         />
+
         <button onClick={() => searchingVideo(inputValue)}>
           <i className="material-symbols-outlined">search</i>
         </button>
       </div>
+      <VoiceTyping
+        onInput={voiceTypingHandler}
+        type="text"
+        placeholder="Введите запрос"
+      />
 
       <div className="header-rightItems">
         <i className="material-symbols-outlined">mic</i>
+
         <button>+Создать</button>
         <i className="material-symbols-outlined">notifications</i>
-        <div>{user ? <DropdownButton onLogout={handleLogout} /> : <Auth onLogin={(user) => setUser(user)} />}</div>
+        <div>
+          {user ? (
+            <DropdownButton onLogout={handleLogout} />
+          ) : (
+            <Auth onLogin={(user) => setUser(user)} />
+          )}
+        </div>
       </div>
     </header>
   );

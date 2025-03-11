@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import AuthModal from "./AuthModal";
 import { authentication } from "../authReducer";
 import RegistrerModal from "./RegistrerModal";
+import styled from "styled-components";
 
 const Auth = ({ onLogin }) => {
   const [authModalVisible, setAuthModalVisible] = useState(false);
@@ -32,13 +33,48 @@ const Auth = ({ onLogin }) => {
   };
 
   return (
-    <div>
-      <button onClick={signInClickHandler}>Sign In </button>
+    <SignBox>
+      <SignInBtn onClick={signInClickHandler}>Sign In </SignInBtn>
       {authModalVisible && <AuthModal onAuth={handleAuth} />}
-      <button onClick={signUpClickHandler}>Sign Up </button>
+      <SignUpBtn onClick={signUpClickHandler}>Sign Up </SignUpBtn>
       {registerModalVisible && <RegistrerModal onAuth={handleRegister} />}
-    </div>
+    </SignBox>
   );
 };
 
 export default Auth;
+
+const SignBox = styled.div`
+  display: flex;
+  gap: 10px;
+`;
+
+const SignInBtn = styled.button`
+  background-color: transparent;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 5px;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
+const SignUpBtn = styled.button`
+  background-color: transparent;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 5px;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;

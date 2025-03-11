@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import styled from "styled-components";
 
 const VoiceTyping = ({ onInput }) => {
   const [text, setText] = useState("");
@@ -26,16 +27,37 @@ const VoiceTyping = ({ onInput }) => {
 
   return (
     <div className="p-4 text-center">
-      <button
+      <ButtonMic
         onClick={startListening}
         className={`p-2 rounded ${
           listening ? "bg-red-500" : "bg-blue-500"
         } text-white`}
       >
-        {listening ? "Listening..." : "Start Speaking"}
-      </button>
+        {listening ? (
+          "Listening..."
+        ) : (
+          <i className="material-symbols-outlined">mic</i>
+        )}
+      </ButtonMic>
     </div>
   );
 };
 
 export default VoiceTyping;
+
+const ButtonMic = styled.button`
+  background-color: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;

@@ -29,20 +29,6 @@ body {
         cursor: pointer;
     }
 
-    button {
-        background-color: transparent;
-        border: 1px solid #333;
-        border-radius: 12px;
-        padding: 5px;
-
-        &:hover {
-            transform: scale(1.05);
-        }
-
-        &:active {
-            transform: scale(0.95);
-        }
-    }
     .header-searchBox {
         display: flex;
         align-items: center;

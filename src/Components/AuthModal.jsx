@@ -28,29 +28,32 @@ const AuthModal = ({ onAuth }) => {
   };
 
   return (
-    <>{isOpen && (
-      <AuthModalOverlay onClick={handleOverlayClick}>
-       
-        <AuthModalBox>
-        <HeaderModal><strong>Sign In Menu</strong></HeaderModal>
-          <AuthModalInput
-            placeholder="Login"
-            name="login"
-            value={login}
-            onChange={(e) => setLogin(e.target.value)}
-          />
-          <AuthModalInput
-            placeholder="Password"
-            name="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <AuthModalBtn onClick={handleSubmit}>Sign In</AuthModalBtn>
-          <AuthModalBtn onClick={() => setIsOpen(false)}>Close</AuthModalBtn>
-        </AuthModalBox>
-      </AuthModalOverlay>
-    )}</>
+    <>
+      {isOpen && (
+        <AuthModalOverlay onClick={handleOverlayClick}>
+          <AuthModalBox>
+            <HeaderModal>
+              <strong>Sign In Menu</strong>
+            </HeaderModal>
+            <AuthModalInput
+              placeholder="Login"
+              name="login"
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
+            />
+            <AuthModalInput
+              placeholder="Password"
+              name="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <AuthModalBtn onClick={handleSubmit}>Sign In</AuthModalBtn>
+            <AuthModalBtn onClick={() => setIsOpen(false)}>Close</AuthModalBtn>
+          </AuthModalBox>
+        </AuthModalOverlay>
+      )}
+    </>
   );
 };
 
@@ -68,7 +71,6 @@ const AuthModalOverlay = styled.div`
   align-items: center;
   padding: 15px;
 `;
-
 
 const AuthModalBox = styled.div`
   background: white;
@@ -96,12 +98,15 @@ const AuthModalBtn = styled.button`
   border-radius: 5px;
   cursor: pointer;
 
-   &:hover {
+  &:hover {
     background: #2980b9;
+  }
+
+  &:nth-of-type(2) {
+    background: red;
   }
 `;
 
 const HeaderModal = styled.span`
-font-size: 1.8rem;
-`
-
+  font-size: 1.8rem;
+`;

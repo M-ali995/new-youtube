@@ -1,24 +1,18 @@
 import { channels } from "../yotubeReducer";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
-export default function LeftBarSubscr({ setChannel }) {
+export default function LeftBarSubscr({ setChannel, subscribes }) {
+  const [filteredItems, setFilteredItems] = useState([]);
+
+  useEffect(() => {
+    const filteredData = channels.filter((item) => subscribes.includes(item.name));
+    setFilteredItems(filteredData);
+  }, [subscribes]);
+
   const clickHandler = (name) => {
     console.log(name);
     setChannel(name);
   };
-
-  const [filteredItems, setFilteredItems] = useState([]);
-
-  useEffect(() => {
-    const channelName = JSON.parse(localStorage.getItem("subscribes")) || [];
-
-    const filteredData = channels.filter((item) =>
-      channelName.includes(item.name)
-    );
-
-    console.log(filteredData);
-    setFilteredItems(filteredData);
-  }, []);
 
   return (
     <div className="left-barSubcr">
@@ -29,7 +23,6 @@ export default function LeftBarSubscr({ setChannel }) {
           {item.name}
         </span>
       ))}
-      <div></div>
     </div>
   );
 }

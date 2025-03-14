@@ -1,22 +1,8 @@
 import { yotubeBox } from "../yotubeReducer";
 import ContainerItem from "./ContainerItem";
 import { filterYotubeBox, searchYotubeBox } from "../yotubeReducer";
-import { useState, useEffect } from "react";
 
-export default function MainPage({ channel, searcher }) {
-  const [subscribes, setSubscribes] = useState([]);
-  useEffect(() => {
-    const storedSubscribes =
-      JSON.parse(localStorage.getItem("subscribes")) || [];
-    setSubscribes(storedSubscribes);
-  }, []);
-
-  const handleSubscribe = (newChannel) => {
-    const updatedSubscribes = [...subscribes, newChannel];
-    setSubscribes(updatedSubscribes);
-    localStorage.setItem("subscribes", JSON.stringify(updatedSubscribes));
-  };
-
+export default function MainPage({ channel, searcher, handleSubscribe }) {
   if (searcher) {
     return (
       <div className="main-page">

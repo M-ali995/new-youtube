@@ -1,6 +1,5 @@
 import { NavLink } from "react-router-dom";
 
-
 export default function ContainerItem({ item, handleSubscribe }) {
   const watchLater = () => {
     let storedIds = JSON.parse(localStorage.getItem("watchLater")) || [];
@@ -13,16 +12,6 @@ export default function ContainerItem({ item, handleSubscribe }) {
       localStorage.setItem("watchLater", JSON.stringify(storedIds));
     }
   };
-
-  // const addSubsribe = () => {
-  //   let channelsName = JSON.parse(localStorage.getItem("subscribes")) || [];
-  //   console.log(item.channelName);
-
-  //   if (!channelsName.includes(item.channelName)) {
-  //     channelsName.push(item.channelName);
-  //     localStorage.setItem("subscribes", JSON.stringify(channelsName));
-  //   }
-  // };
 
   const addSubscribe = () => {
     handleSubscribe(item.channelName);
@@ -51,13 +40,10 @@ export default function ContainerItem({ item, handleSubscribe }) {
         </div>
       </NavLink>
       {window.location.pathname !== "/later" && (
-        <div> 
+        <div>
           <button onClick={watchLater}>add</button>
-          <button onClick={addSubscribe}>Subsribe</button>
-          </div>
-       
-
-
+          <button onClick={addSubscribe}>Subscribe</button>
+        </div>
       )}
     </div>
   );

@@ -24,6 +24,7 @@ const RegistrerModal = () => {
       if (!checkUserExist(userList)) {
         userList.push(userData);
         localStorage.setItem("userList", JSON.stringify(userList));
+        setIsOpen(false);
       }
     }
   };
@@ -35,29 +36,32 @@ const RegistrerModal = () => {
   };
 
   return (
-    <>{isOpen && (
-      <AuthModalOverlay onClick={handleOverlayClick}>
-       
-        <AuthModalBox>
-        <HeaderModal><strong>Sign Up Menu</strong></HeaderModal>
-          <AuthModalInput
-            placeholder="Login"
-            name="login"
-            value={login}
-            onChange={(e) => setLogin(e.target.value)}
-          />
-          <AuthModalInput
-            placeholder="Password"
-            name="password"
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <AuthModalBtn onClick={handleSubmit}>Sign In</AuthModalBtn>
-          <AuthModalBtn onClick={() => setIsOpen(false)}>Close</AuthModalBtn>
-        </AuthModalBox>
-      </AuthModalOverlay>
-    )}</>
+    <>
+      {isOpen && (
+        <AuthModalOverlay onClick={handleOverlayClick}>
+          <AuthModalBox>
+            <HeaderModal>
+              <strong>Sign Up Menu</strong>
+            </HeaderModal>
+            <AuthModalInput
+              placeholder="Login"
+              name="login"
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
+            />
+            <AuthModalInput
+              placeholder="Password"
+              name="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            <AuthModalBtn onClick={handleSubmit}>Sign Up</AuthModalBtn>
+            <AuthModalBtn onClick={() => setIsOpen(false)}>Close</AuthModalBtn>
+          </AuthModalBox>
+        </AuthModalOverlay>
+      )}
+    </>
   );
 };
 
@@ -104,6 +108,10 @@ const AuthModalBtn = styled.button`
 
   &:hover {
     background: #2980b9;
+  }
+
+  &:nth-of-type(2) {
+    background: red;
   }
 `;
 

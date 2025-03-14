@@ -13,6 +13,16 @@ export default function ContainerItem({ item }) {
     }
   };
 
+  const addSubsribe = () => {
+    let channelsName = JSON.parse(localStorage.getItem("subscribes")) || [];
+    console.log(item.channelName);
+
+    if (!channelsName.includes(item.channelName)) {
+      channelsName.push(item.channelName);
+      localStorage.setItem("subscribes", JSON.stringify(channelsName));
+    }
+  };
+
   return (
     <div>
       <NavLink to={`/video/${item.id}`} className="container-item">
@@ -36,7 +46,13 @@ export default function ContainerItem({ item }) {
         </div>
       </NavLink>
       {window.location.pathname !== "/later" && (
-        <button onClick={watchLater}>add</button>
+        <div> 
+          <button onClick={watchLater}>add</button>
+          <button onClick={addSubsribe}>Subsribe</button>
+          </div>
+       
+
+
       )}
     </div>
   );

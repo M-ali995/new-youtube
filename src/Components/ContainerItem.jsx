@@ -1,6 +1,7 @@
 import { NavLink } from "react-router-dom";
 
-export default function ContainerItem({ item }) {
+
+export default function ContainerItem({ item, handleSubscribe }) {
   const watchLater = () => {
     let storedIds = JSON.parse(localStorage.getItem("watchLater")) || [];
     console.log(storedIds);
@@ -13,14 +14,18 @@ export default function ContainerItem({ item }) {
     }
   };
 
-  const addSubsribe = () => {
-    let channelsName = JSON.parse(localStorage.getItem("subscribes")) || [];
-    console.log(item.channelName);
+  // const addSubsribe = () => {
+  //   let channelsName = JSON.parse(localStorage.getItem("subscribes")) || [];
+  //   console.log(item.channelName);
 
-    if (!channelsName.includes(item.channelName)) {
-      channelsName.push(item.channelName);
-      localStorage.setItem("subscribes", JSON.stringify(channelsName));
-    }
+  //   if (!channelsName.includes(item.channelName)) {
+  //     channelsName.push(item.channelName);
+  //     localStorage.setItem("subscribes", JSON.stringify(channelsName));
+  //   }
+  // };
+
+  const addSubscribe = () => {
+    handleSubscribe(item.channelName);
   };
 
   return (
@@ -48,7 +53,7 @@ export default function ContainerItem({ item }) {
       {window.location.pathname !== "/later" && (
         <div> 
           <button onClick={watchLater}>add</button>
-          <button onClick={addSubsribe}>Subsribe</button>
+          <button onClick={addSubscribe}>Subsribe</button>
           </div>
        
 

@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { yotubeBox } from "../yotubeReducer";
 import { useRef, useState, useEffect } from "react";
+import styled from "styled-components";
 
 export default function VideoPage() {
   const { id } = useParams();
@@ -25,29 +26,37 @@ export default function VideoPage() {
 
   useEffect(() => {
     if (id) {
-      const comments = localStorage.getItem("comments") ? JSON.parse(localStorage.getItem("comments")): [];
-      const filteredComments = comments.filter(item => item.videoId === id );
+      const comments = localStorage.getItem("comments")
+        ? JSON.parse(localStorage.getItem("comments"))
+        : [];
+      const filteredComments = comments.filter((item) => item.videoId === id);
       setComments(filteredComments);
     }
   }, []);
-  
+
   useEffect(() => {
-    const login = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).login : null;
-    const likes = localStorage.getItem("likes") ? JSON.parse(localStorage.getItem("likes")): [];
+    const login = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).login
+      : null;
+    const likes = localStorage.getItem("likes")
+      ? JSON.parse(localStorage.getItem("likes"))
+      : [];
     setLikesCount(likes.length);
 
-    if(login && likes.some(item => item.login === login && item.videoId === id)) {
+    if (
+      login &&
+      likes.some((item) => item.login === login && item.videoId === id)
+    ) {
       setHasLike(true);
-      console.log("dddd")
+      console.log("dddd");
     }
-    console.log(login)
-
+    console.log(login);
   }, [likes]);
 
-
-
   function saveComment() {
-    const userName = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).login: "anonymous";
+    const userName = localStorage.getItem("user")
+      ? JSON.parse(localStorage.getItem("user")).login
+      : "anonymous";
     const comment = {
       text: textAreaRef.current.value,
       videoId: id,
@@ -62,25 +71,25 @@ export default function VideoPage() {
   }
 
   function addLikes() {
-    if(!localStorage.getItem("user") || hasLike) {
+    if (!localStorage.getItem("user") || hasLike) {
       return false;
     }
-    
+
     const login = JSON.parse(localStorage.getItem("user"))?.login;
     const like = {
       videoId: id,
       login: login,
     };
 
-  const storedLikes = JSON.parse(localStorage.getItem("likes")) || [];
-  const updatedLikes = [...storedLikes, like];
+    const storedLikes = JSON.parse(localStorage.getItem("likes")) || [];
+    const updatedLikes = [...storedLikes, like];
 
-  setLikes(updatedLikes); // Update state
-  localStorage.setItem("likes", JSON.stringify(updatedLikes)); // Store updated list
+    setLikes(updatedLikes); // Update state
+    localStorage.setItem("likes", JSON.stringify(updatedLikes)); // Store updated list
 
     setLikesCount((prevLikesCount) => {
       return prevLikesCount + 1;
-    })
+    });
   }
 
   if (!video) {
@@ -88,7 +97,7 @@ export default function VideoPage() {
   }
 
   return (
-    <div className="video-page">
+    <VideoPageBox>
       <iframe
         width="900"
         height="500"
@@ -98,7 +107,7 @@ export default function VideoPage() {
         referrerPolicy="strict-origin-when-cross-origin"
         allowFullScreen
       ></iframe>
-      <div className="video-info">
+      <VideoInfo>
         <img
           src={video.iconUrl}
           alt={video.channelName}
@@ -114,33 +123,104 @@ export default function VideoPage() {
         <p>
           <strong>Дата:</strong> {video.date}
         </p>
-        <div className="video-likes">
-          <button onClick={addLikes}>
+        <LikesContainer>
+          <LikeBtn onClick={addLikes}>
             {" "}
             <i className="material-symbols-outlined">thumb_up</i>
-          </button>
+          </LikeBtn>
           <p>Likes: {likesCount}</p>
-        </div>
-      </div>
-      <div className="video-comments">
+        </LikesContainer>
+      </VideoInfo>
+      <CommentsContainer>
         <span>
           {" "}
           <strong>Comments :</strong>
         </span>
-        <textarea
-          className="input"
+        <InputComment
           ref={textAreaRef}
           placeholder="Напишите ваш комментарий"
-        ></textarea>
-        <button onClick={saveComment}>Add comment</button>
+        ></InputComment>
+        <AddCommentBtn onClick={saveComment}>Add comment</AddCommentBtn>
         {comments.map(
-          (item, index) => item && 
-          <div key={index}>
-            <span> <strong>{item.userName}</strong></span> :
-            <span> {item.text}</span>
-          </div>
+          (item, index) =>
+            item && (
+              <div key={index}>
+                <span>
+                  {" "}
+                  <strong>{item.userName}</strong>
+                </span>{" "}
+                :<span> {item.text}</span>
+              </div>
+            )
         )}
-      </div>
-    </div>
+      </CommentsContainer>
+    </VideoPageBox>
   );
 }
+
+const VideoPageBox = styled.div`
+  padding-top: 50px;
+  margin-left: 350px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  iframe {
+    border-radius: 12px;
+  }
+
+  i {
+    cursor: pointer;
+  }
+
+  .input {
+    height: 50px;
+    border-radius: 12px;
+  }
+`;
+
+const VideoInfo = styled.div`
+  display: flex;
+  gap: 20px;
+`;
+
+const LikesContainer = styled.div`
+  margin-left: 100px;
+  display: flex;
+  gap: 10px;
+`;
+
+const LikeBtn = styled.button`
+  background-color: transparent;
+  border: none;
+`;
+
+const CommentsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 20px;
+`;
+
+const InputComment = styled.textarea`
+  padding-left: 10px;
+  padding-top: 10px;
+  width: 50%;
+  height: 100px;
+`;
+
+const AddCommentBtn = styled.button`
+  background-color: transparent;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 5px;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+`;

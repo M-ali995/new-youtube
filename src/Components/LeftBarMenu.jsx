@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
+import styled from "styled-components";
 
 export default function LeftBarMenu({ resetSearchFilter }) {
   const [activeLink, setActiveLink] = useState(null);
@@ -21,7 +22,7 @@ export default function LeftBarMenu({ resetSearchFilter }) {
   ];
 
   return (
-    <div className="left-barMenu">
+    <LeftBarMenuBox>
       {navItems.map((item) => (
         <NavLink
           key={item.path}
@@ -36,10 +37,49 @@ export default function LeftBarMenu({ resetSearchFilter }) {
         </NavLink>
       ))}
       <hr />
-    </div>
+    </LeftBarMenuBox>
   );
 }
 
+const LeftBarMenuBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-self: center;
+  gap: 5px;
 
+  i {
+    color: #888;
+  }
 
+  .active-link {
+    background-color: #cfcfcf;
 
+    i {
+      color: #000;
+      transform: scale(1.05);
+    }
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 20px;
+    text-decoration: none;
+    color: inherit;
+    border-radius: 6px;
+    padding: 10px 0px 10px 5px;
+    width: 100%;
+    transition: 0.1s ease-in-out;
+
+    &:hover {
+      background-color: #cfcfcf;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    &:hover i {
+      color: #000;
+      transform: scale(1.05);
+    }
+  }
+`;

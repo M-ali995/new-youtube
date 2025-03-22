@@ -31,25 +31,25 @@ export default function Header({ searchingVideo, resetSearchFilter }) {
   };
 
   return (
-    <header className="header">
+    <HeaderBox>
       <NavLink to="/" end onClick={() => resetSearchFilter()}>
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Youtube.png/2560px-Youtube.png" />
+        <YoutubeImgIcon src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Youtube.png/2560px-Youtube.png" />
       </NavLink>
 
-      <div className="header-searchBox">
-        <input
+      <HeaderSearchBox>
+        <SearchInput
           type="text"
           placeholder="Введите запрос"
           onInput={inputHandler}
           value={inputValue}
         />
 
-        <button onClick={() => searchingVideo(inputValue)}>
+        <SearchBtn onClick={() => searchingVideo(inputValue)}>
           <i className="material-symbols-outlined">search</i>
-        </button>
-      </div>
+        </SearchBtn>
+      </HeaderSearchBox>
 
-      <div className="header-rightItems">
+      <HeaderRightBox>
         <VoiceTyping
           onInput={voiceTypingHandler}
           type="text"
@@ -65,24 +65,101 @@ export default function Header({ searchingVideo, resetSearchFilter }) {
             <Auth onLogin={(user) => setUser(user)} />
           )}
         </div>
-      </div>
-    </header>
+      </HeaderRightBox>
+    </HeaderBox>
   );
 }
 
 const CreateBtn = styled.button`
-    background-color: transparent;
-    border: 1px solid #333;
-    border-radius: 12px;
-    padding: 5px;
+  background-color: transparent;
+  border: 1px solid #333;
+  border-radius: 12px;
+  padding: 5px;
 
-    &:hover {
-      transform: scale(1.05);
-    }
+  &:hover {
+    transform: scale(1.05);
+  }
 
-    &:active {
-      transform: scale(0.95);
-    }
+  &:active {
+    transform: scale(0.95);
+  }
 `;
 
+const HeaderBox = styled.header`
+  position: sticky;
+  background-color: #fff;
+  z-index: 9;
+  top: 0;
+  padding-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+`;
 
+const YoutubeImgIcon = styled.img`
+  padding: 10px 0px 0px 30px;
+  width: 150px;
+  height: 40px;
+  cursor: pointer;
+`;
+
+const HeaderSearchBox = styled.div`
+  display: flex;
+  align-items: center;
+  height: 40px;
+  max-width: 600px;
+  border: 1px solid #ccc;
+  border-radius: 20px;
+  overflow: hidden;
+  background-color: #fff;
+  margin-left: 100px;
+`;
+
+const SearchInput = styled.input`
+  width: 400px;
+  flex-grow: 1;
+  border: none;
+  padding: 0px 16px;
+  font-size: 14px;
+  outline: none;
+
+  &::placeholder {
+    color: #888;
+  }
+`;
+const SearchBtn = styled.button`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 100%;
+  background-color: #f1f1f1;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: #e6e6e6;
+  }
+
+  .material-symbols-outlined {
+    font-size: 20px;
+    color: #333;
+  }
+`;
+
+const HeaderRightBox = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  justify-content: space-between;
+  padding-right: 50px;
+
+  i {
+    border: 1px solid #ccc;
+    background-color: #fff;
+    padding: 3px;
+    border-radius: 50%;
+    cursor: pointer;
+  }
+`;

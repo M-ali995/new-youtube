@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router";
 import VideoPage from "./Components/VideoPage";
 import History from "./Components/History";
 import Later from "./Components/Later";
+import styled from "styled-components";
 
 function App() {
   const [channel, setChannel] = useState(null);
@@ -14,7 +15,8 @@ function App() {
   const [subscribes, setSubscribes] = useState([]);
 
   useEffect(() => {
-    const storedSubscribes = JSON.parse(localStorage.getItem("subscribes")) || [];
+    const storedSubscribes =
+      JSON.parse(localStorage.getItem("subscribes")) || [];
     setSubscribes(storedSubscribes);
   }, []);
 
@@ -40,9 +42,9 @@ function App() {
   }
 
   return (
-    <div className="App">
+    <div className="app">
       <Header searchingVideo={searchingVideo} />
-      <div className="fullPage">
+      <FullPageDiv>
         <LeftBar setChannel={selectChannel} subscribes={subscribes} />
         <Routes>
           <Route
@@ -59,9 +61,14 @@ function App() {
           <Route path="/history" element={<History />} />
           <Route path="/later" element={<Later />} />
         </Routes>
-      </div>
+      </FullPageDiv>
     </div>
   );
 }
 
 export default App;
+
+const FullPageDiv = styled.div`
+  display: flex;
+  gap: 50px;
+`;

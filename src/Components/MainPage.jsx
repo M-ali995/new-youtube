@@ -1,12 +1,13 @@
 import { yotubeBox } from "../yotubeReducer";
 import ContainerItem from "./ContainerItem";
 import { filterYotubeBox, searchYotubeBox } from "../yotubeReducer";
+import styled from "styled-components";
 
 export default function MainPage({ channel, searcher, handleSubscribe }) {
   if (searcher) {
     return (
       <div className="main-page">
-        <div className="containers">
+        <Containers>
           {searchYotubeBox(searcher).map((item) => (
             <ContainerItem
               item={item}
@@ -14,7 +15,7 @@ export default function MainPage({ channel, searcher, handleSubscribe }) {
               key={item.id}
             />
           ))}
-        </div>
+        </Containers>
       </div>
     );
   }
@@ -22,7 +23,7 @@ export default function MainPage({ channel, searcher, handleSubscribe }) {
   if (channel) {
     return (
       <div className="main-page">
-        <div className="containers">
+        <Containers>
           {filterYotubeBox(channel).map((item) => (
             <ContainerItem
               item={item}
@@ -30,14 +31,14 @@ export default function MainPage({ channel, searcher, handleSubscribe }) {
               key={item.id}
             />
           ))}
-        </div>
+        </Containers>
       </div>
     );
   }
 
   return (
     <div className="main-page">
-      <div className="containers">
+      <Containers>
         {yotubeBox.map((item) => (
           <ContainerItem
             item={item}
@@ -45,7 +46,16 @@ export default function MainPage({ channel, searcher, handleSubscribe }) {
             key={item.id}
           />
         ))}
-      </div>
+      </Containers>
     </div>
   );
 }
+
+
+
+const Containers = styled.div`
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    gap: 30px;
+    padding: 25px;
+`

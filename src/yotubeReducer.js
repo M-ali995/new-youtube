@@ -245,7 +245,7 @@ export const yotubeBoxArray = [
     },
 ]
 
-export const yotubeBox =  [];
+export const yotubeBox =  JSON.parse(localStorage.getItem("videos"));
 
 export const setYotubeBox = JSON.parse(localStorage.getItem("videos")) || [];
 

@@ -8,7 +8,7 @@ import VideoPage from "./Components/VideoPage";
 import History from "./Components/History";
 import Later from "./Components/Later";
 import styled from "styled-components";
-import { yotubeBox } from "./yotubeReducer";
+import { yotubeBoxArray } from "./yotubeReducer";
 
 function App() {
   const [channel, setChannel] = useState(null);
@@ -21,7 +21,7 @@ function App() {
     setSubscribes(storedSubscribes);
 
     if (!localStorage.getItem("videos")) {
-      localStorage.setItem("videos", JSON.stringify(yotubeBox));
+      localStorage.setItem("videos", JSON.stringify(yotubeBoxArray));
     }
   }, []);
 

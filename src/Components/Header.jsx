@@ -4,9 +4,22 @@ import { NavLink } from "react-router-dom";
 import Auth from "./Auth";
 import VoiceTyping from "./VoiceTyping";
 import styled from "styled-components";
+import Modal from "./CreateModal";
 
 export default function Header({ searchingVideo, resetSearchFilter }) {
   const [inputValue, setInputValue] = useState("");
+  const [createModalVisible, setCreateModalVisible] = useState(false);
+  const [isOpen, setIsOpen] = useState(true);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.backgroundColor = "rgba(0, 0, 0, 0)";
+    } else {
+      document.body.style.backgroundColor = "";
+    }
+  }, [isOpen]);
+
+
 
   function inputHandler(ev) {
     setInputValue(ev.target.value);
@@ -56,7 +69,8 @@ export default function Header({ searchingVideo, resetSearchFilter }) {
           placeholder="Введите запрос"
         />
 
-        <CreateBtn>+Создать</CreateBtn>
+        <CreateBtn onClick={() => setCreateModalVisible(!createModalVisible) } >+Создать</CreateBtn>
+        {createModalVisible && <Modal />}
         <i className="material-symbols-outlined">notifications</i>
         <div>
           {user ? (

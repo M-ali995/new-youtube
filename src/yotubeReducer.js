@@ -1,4 +1,4 @@
-export const yotubeBox = [
+export const yotubeBoxArray = [
     {
         url: "https://pbs.twimg.com/media/FO5iMqJWYAQh8Kw?format=jpg&name=large",
         videoUrl: "https://www.youtube.com/embed/um1wEp7_Vp0?si=OxV6LsKR2NNUl9XE",
@@ -244,6 +244,14 @@ export const yotubeBox = [
         id: 24
     },
 ]
+
+export const yotubeBox =  [];
+
+export const setYotubeBox = JSON.parse(localStorage.getItem("videos")) || [];
+
+
+
+
 
 export const channels = [
     {

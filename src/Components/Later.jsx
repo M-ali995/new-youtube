@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import ContainerItem from "./ContainerItem";
 import { yotubeBox } from "../yotubeReducer";
-
+import styled from "styled-components";
 
 const Later = () => {
-
   const [filteredItems, setFilteredItems] = useState([]);
 
   useEffect(() => {
@@ -18,15 +17,34 @@ const Later = () => {
     setFilteredItems(filteredData);
   }, []);
 
+  
+  const removeFromWatchLater = (id) => {
+    const updatedIds = JSON.parse(localStorage.getItem("watchLater") || "[]").filter(
+      (storedId) => storedId !== id
+    );
+
+    localStorage.setItem("watchLater", JSON.stringify(updatedIds));
+    setFilteredItems((prevItems) => prevItems.filter((item) => item.id !== id));
+  };
+  
   return (
     <div className="main-page">
-      <div className="containers">
+      <Containers>
         {filteredItems.map((item) => (
-          <ContainerItem item={item} key={item.id} />
+          <ContainerItem key={item.id} item={item} onRemove={removeFromWatchLater} />
         ))}
-      </div>
+      </Containers>
+      
     </div>
   );
 };
 
 export default Later;
+
+const Containers = styled.div`
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 30px;
+  padding: 25px;
+  align-items: start;
+`;

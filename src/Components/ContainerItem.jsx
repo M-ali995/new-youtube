@@ -1,11 +1,9 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
-export default function ContainerItem({ item, handleSubscribe }) {
+export default function ContainerItem({ item, handleSubscribe, onRemove }) {
   const watchLater = () => {
     let storedIds = JSON.parse(localStorage.getItem("watchLater")) || [];
-    console.log(storedIds);
-
     storedIds = storedIds.map(Number);
 
     if (!storedIds.includes(item.id)) {
@@ -20,41 +18,79 @@ export default function ContainerItem({ item, handleSubscribe }) {
 
   return (
     <div>
-      <NavLink to={`/video/${item.id}`} className="container-item">
-        <ImgContainer>
-          <Image src={item.url} alt={item.description} />
-        </ImgContainer>
-        <ContainerInfo>
-          <FlexBox>
-            <ImageIcon src={item.iconUrl} alt={item.channelName} />
-            <Description>{item.description}</Description>
-          </FlexBox>
-          <ContainerInfoSpans>
-            <SpanInfo>{item.views} просмотров</SpanInfo>
-            <SpanInfo>{item.channelName}</SpanInfo>
-            <SpanInfo> &#9679; {item.date}</SpanInfo>
-          </ContainerInfoSpans>
-        </ContainerInfo>
-      </NavLink>
-      {window.location.pathname !== "/later" && (
-        <div>
-          <button onClick={watchLater}>add</button>
-          <button onClick={addSubscribe}>Subscribe</button>
-        </div>
+      <ItemBlock> 
+        <NavLink to={`/video/${item.id}`} className="container-item">
+          <ImgContainer>
+            <Image src={item.url} alt={item.description} />
+          </ImgContainer>
+          <ContainerInfo>
+            <FlexBox>
+              <ImageIcon src={item.iconUrl} alt={item.channelName} />
+              <Description>{item.description}</Description>
+            </FlexBox>
+            <ContainerInfoSpans>
+              <SpanInfo>{item.views} просмотров</SpanInfo>
+              <SpanInfo>{item.channelName}</SpanInfo>
+              <SpanInfo> &#9679; {item.date}</SpanInfo>
+            </ContainerInfoSpans>
+          </ContainerInfo>
+        </NavLink>
+      </ItemBlock>
+
+      {window.location.pathname === "/later" ? (
+        <ButtonsBlock>
+          <Buttons onClick={() => onRemove(item.id)}>Удалить</Buttons>
+        </ButtonsBlock>
+      ) : (
+        <ButtonsBlock>
+          <Buttons onClick={watchLater}>Watch Later</Buttons>
+          <Buttons onClick={addSubscribe}>Subscribe</Buttons>
+        </ButtonsBlock>
       )}
     </div>
   );
 }
 
+const ItemBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+  justify-content: center;
+  height: 380px;
+`;
+
+const ButtonsBlock = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+`;
+
+const Buttons = styled.button`
+  background-color: transparent;
+  border: 1px solid #555;
+  border-radius: 6px;
+  transition: 0.1s ease-in-out;
+
+  &:hover {
+    transform: scale(1.05);
+  }
+  &:active {
+    transform: scale(0.95);
+  }
+`;
+
 const Description = styled.span`
   font-weight: 600;
   font-size: 18px;
 `;
+
 const FlexBox = styled.div`
   display: flex;
   align-items: center;
   gap: 15px;
 `;
+
 const ImgContainer = styled.div`
   width: 100%;
   height: 220px;
@@ -83,6 +119,7 @@ const ContainerInfo = styled.div`
   flex-direction: column;
   gap: 10px;
 `;
+
 const ContainerInfoSpans = styled.div`
   display: flex;
   flex-direction: column;

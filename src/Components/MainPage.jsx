@@ -38,7 +38,7 @@ export default function MainPage({ channel, searcher, handleSubscribe }) {
 
   return (
     <div className="main-page">
-      <Containers>
+      <Containers className="containers">
         {yotubeBox
           ? yotubeBox.map((item) => (
               <ContainerItem
@@ -64,4 +64,5 @@ const Containers = styled.div`
   grid-template-columns: auto auto auto auto;
   gap: 30px;
   padding: 25px;
+  align-items: start;
 `;

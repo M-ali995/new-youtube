@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { Routes, Route } from "react-router";
 import VideoPage from "./Components/VideoPage";
 import History from "./Components/History";
+import Liked from "./Components/Liked";
 import Later from "./Components/Later";
 import styled from "styled-components";
 import { yotubeBoxArray } from "./yotubeReducer";
@@ -65,6 +66,7 @@ function App() {
           <Route path="/video/:id" element={<VideoPage />} />
           <Route path="/history" element={<History />} />
           <Route path="/later" element={<Later />} />
+          <Route path="/liked" element={<Liked />} />
         </Routes>
       </FullPageDiv>
     </div>

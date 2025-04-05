@@ -35,17 +35,16 @@ export default function VideoPage() {
   }, []);
 
   useEffect(() => {
-    const login = localStorage.getItem("user")
-      ? JSON.parse(localStorage.getItem("user")).login
-      : null;
-    const likes = localStorage.getItem("likes")
-      ? JSON.parse(localStorage.getItem("likes"))
-      : [];
-    setLikesCount(likes.length);
+    const login = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")).login : null;
+    const likes = localStorage.getItem("likes") ? JSON.parse(localStorage.getItem("likes")) : [];
+
+    const likesCnt = likes.filter(item => Number(item.videoId) === Number(id)).length;
+    console.log(likesCnt)
+
+    setLikesCount(likesCnt);
 
     if (
-      login &&
-      likes.some((item) => item.login === login && item.videoId === id)
+      login && likes.some((item) => item.login === login && item.videoId === id)
     ) {
       setHasLike(true);
       console.log("dddd");
@@ -84,8 +83,8 @@ export default function VideoPage() {
     const storedLikes = JSON.parse(localStorage.getItem("likes")) || [];
     const updatedLikes = [...storedLikes, like];
 
-    setLikes(updatedLikes); // Update state
-    localStorage.setItem("likes", JSON.stringify(updatedLikes)); // Store updated list
+    setLikes(updatedLikes);
+    localStorage.setItem("likes", JSON.stringify(updatedLikes)); 
 
     setLikesCount((prevLikesCount) => {
       return prevLikesCount + 1;

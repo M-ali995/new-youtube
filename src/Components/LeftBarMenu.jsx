@@ -13,9 +13,9 @@ export default function LeftBarMenu({ resetSearchFilter }) {
   const navItems = [
     { path: "/", label: "Главная", icon: "home" },
     // { path: "/shorts", label: "Shorts", icon: "playing_cards" },
-    { path: "/subscr", label: "Подписки", icon: "subscriptions" },
+    // { path: "/subscr", label: "Подписки", icon: "subscriptions" },
     { path: "/history", label: "История", icon: "history" },
-    { path: "/playlists", label: "Плейлисты", icon: "playlist_play" },
+    // { path: "/playlists", label: "Плейлисты", icon: "playlist_play" },
     // { path: "/videos", label: "Ваши Видео", icon: "smart_display" },
     { path: "/later", label: "Смотреть позже", icon: "schedule" },
     { path: "/liked", label: "Понравившиеся", icon: "thumb_up" },
